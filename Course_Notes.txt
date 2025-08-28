@@ -1,0 +1,4 @@
+- Add a driver for any ORM
+- To Connect to db 
+- # SQLALCHEMY_DATABASE_URL = 'postgresql://<username>:<password>@<ip-address/hostname>/<database_name>'
+
