@@ -36,3 +36,6 @@ The authentication flow using JWT tokens proceeds as follows:
 - The purpose of the signature is to ensure data integrity. It allows the API to detect if the token has been tampered with or if any data within the header or payload has been altered. Without the secret password, an attacker cannot generate a new valid signature to match any altered data, thus preventing unauthorized modifications.
 
 - JWT tokens also include an expiration time, typically embedded in the payload. This sets a limit on how long a user remains logged in, preventing indefinite sessions. The API checks this expiration time upon receiving a token to ensure it has not expired.
+
+
+- SQLAlchemy doesn't track changes on the tables, if the table name exist will ignore any changes, so we need migration
