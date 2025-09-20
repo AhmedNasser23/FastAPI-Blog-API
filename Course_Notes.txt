@@ -39,3 +39,6 @@ The authentication flow using JWT tokens proceeds as follows:
 
 
 - SQLAlchemy doesn't track changes on the tables, if the table name exist will ignore any changes, so we need migration
+
+- Anyone want to clone our repo
+  - pip install -r requirements.txt
