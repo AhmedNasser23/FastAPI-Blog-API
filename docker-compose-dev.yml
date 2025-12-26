@@ -1,0 +1,38 @@
+services:
+  api:
+  # FastAPI application service
+    build: . # Build the Docker image from the current directory
+    ports: # Map port 8000 of the host to port 8000 of the container
+      - "8000:8000"
+    volumes:
+      - ./:/usr/src/app:ro # To sync changes local and container, with read-only
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    environment: # Environment variables for the FastAPI application
+      - DATABASE_HOSTNAME=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_USERNAME=ahmed
+      - DATABASE_PASSWORD=AhmedHemdan123@
+      - DATABASE_NAME=fastapi_db
+      - SECRET_KEY=302fa994772a3cd1bb05d5aafc862a6fafb9be69d5cb22ec99cbbd5366d8c317
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=30
+    depends_on: # Ensure the API service starts after the Postgres service is healthy
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:15-alpine # Use the official Postgres image
+    environment: # Environment variables for Postgres
+      - POSTGRES_USER=ahmed
+      - POSTGRES_PASSWORD=AhmedHemdan123@
+      - POSTGRES_DB=fastapi_db
+    volumes: # Persist Postgres data
+      - postgres-db:/var/lib/postgresql/data/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ahmed"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres-db:
