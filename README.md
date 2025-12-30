@@ -34,9 +34,10 @@ This project was developed as part of learning API development and backend engin
 │   ├── models.py        # Database models
 │   ├── schemas.py       # Pydantic schemas
 │   ├── database.py      # DB connection
-│   ├── routers/         # API routes (users, posts, auth, votes)
+│   ├── config.py        # 
+│   ├── oauth2.py        # 
 │   └── utils.py         # Utility functions
-├── alembic/             # Database migrations
+│   ├── routers/         # API routes (users, posts, auth, votes)
 ├── tests/               # Pytest test cases
 ├── requirements.txt     # Project dependencies
 ├── Dockerfile           # Docker configuration

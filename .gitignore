@@ -1,6 +1,7 @@
 **/__pycache__/
 *.pyc
 *.pyo
+.pytest_cache/
 
 
 myenv/
@@ -11,6 +12,8 @@ myenv/
 .vscode/
 
 *.cph
+calculations.py
+test_calculations.py
 
 alembic.ini
 alembic/
