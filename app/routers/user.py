@@ -12,12 +12,18 @@ router = APIRouter(
 # Create User
 """
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut)
-def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+def create_user(
+    user: schemas.UserCreate, 
+    db: Session = Depends(get_db)
+):
     # Hash the password - user.password
     
     user_mail = db.query(models.User).filter(models.User.email == user.email).first()
     if user_mail:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Email {user.email} is already registered.")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, 
+            detail=f"Email {user.email} is already registered."
+        )
 
     user.password = utils.hash(user.password)
 
@@ -32,8 +38,14 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 # Get User
 """
 @router.get("/{id}", response_model=schemas.UserOut)
-def get_user(id: int, db: Session = Depends(get_db)):
+def get_user(
+    id: int, 
+    db: Session = Depends(get_db)
+):
     user = db.query(models.User).filter(models.User.id == id).first()
     if not user:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"user with id: {id} was not found.")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, 
+            detail=f"user with id: {id} was not found."
+        )
     return user

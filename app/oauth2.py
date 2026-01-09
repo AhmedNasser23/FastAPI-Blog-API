@@ -12,7 +12,9 @@ SECRET_KEY = f"{settings.secret_key}"
 ALGORITHM = f"{settings.algorithm}"
 ACCESS_TOKEN_EXPIRE_MINUTES = settings.access_token_expire_minutes
 
-def create_access_token(data: dict):
+def create_access_token(
+    data: dict
+):
     to_encode = data.copy()
 
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
@@ -23,7 +25,10 @@ def create_access_token(data: dict):
     
     return encoded_jwt
 
-def verify_access_token(token: str, credentials_exception):
+def verify_access_token(
+    token: str, 
+    credentials_exception
+):
     try:
         # here we decode the token
         # the payload is the data we encoded in create_access_token function
@@ -40,6 +45,12 @@ def verify_access_token(token: str, credentials_exception):
 
     return token_data
 
-def get_current_user(token: str = Depends(oauth2_scheme)):
-    credentials_exception = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Could not validate credentials", headers={"WWW-Authenticate": "Bearer"})
+def get_current_user(
+    token: str = Depends(oauth2_scheme)
+):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED, 
+        detail="Could not validate credentials", 
+        headers={"WWW-Authenticate": "Bearer"}
+    )
     return verify_access_token(token, credentials_exception)
